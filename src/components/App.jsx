@@ -21,11 +21,11 @@ export default function App({ claveAcceso, dbVales }) {
 
   if (desbloqueado) {
     return (
-      <div className="w-fit max-w-full" ref={sliderRef}>
+      <div className="w-fit max-w-full  overflow-hidden" ref={sliderRef}>
         <motion.ul
           drag="x"
           dragConstraints={sliderRef}
-          className="flex gap-2 w-fit h-auto"
+          className="flex gap-2 w-fit h-auto px-4"
         >
           {vales.map(
             (v) =>
@@ -46,7 +46,7 @@ export default function App({ claveAcceso, dbVales }) {
                   </main>
                   <footer className="w-full flex items-center justify-between">
                     <span className="text-white">{v.cantidad} &#x2764;</span>
-                    <form action="api/consumir" method="post">
+                    <form action="api/consumir" method="POST">
                       <input type="hidden" name="id" value={v.id} />
                       <button className="px-2 py-1 border-blue-950 border-2 rounded-full text-blue-950 font-semibold hover:scale-95">
                         Consumir
