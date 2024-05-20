@@ -69,7 +69,7 @@ export default function App({ claveAcceso, dbVales }) {
           >
             <span className="text-slate-600">CLAVE DE ACCESO</span>
             <input
-              type="text"
+              type="password"
               name="clave"
               id="clave"
               onChange={(e) => setClave(e.target.value)}
