@@ -23,15 +23,39 @@ export default function App({ claveAcceso, dbVales }) {
     return (
       <div className="w-fit max-w-full" ref={sliderRef}>
         <motion.ul
-            drag="x"
-            dragConstraints={sliderRef}
-            className="flex items-center justify-start gap-2 w-fit "
-          >
-          {vales.map((v) => (
-            <li key={v.id}>
-              {v.titulo}-{v.descripcion}-{v.cantidad}-{v.consumido}
-            </li>
-          ))}
+          drag="x"
+          dragConstraints={sliderRef}
+          className="flex gap-2 w-fit h-auto"
+        >
+          {vales.map(
+            (v) =>
+              !v.consumido && (
+                <li
+                  key={v.id}
+                  className="card w-80 md:w-96 flex flex-col items-center justify-between bg-gradient-to-r from-black/50 to-blue-500/80 border-[1px] shadow-lg aspect-video rounded-xl p-4"
+                >
+                  <header className="w-full">
+                    <h2 className="text-white text-center text-2xl font-bold text-wrap">
+                      {v.titulo}
+                    </h2>
+                  </header>
+                  <main className="w-full">
+                    <p className="text-white text-wrap text-center">
+                      {v.descripcion}
+                    </p>
+                  </main>
+                  <footer className="w-full flex items-center justify-between">
+                    <span className="text-white">{v.cantidad} &#x2764;</span>
+                    <form action="api/consumir" method="post">
+                      <input type="hidden" name="id" value={v.id} />
+                      <button className="px-2 py-1 border-blue-950 border-2 rounded-full text-blue-950 font-semibold hover:scale-95">
+                        Consumir
+                      </button>
+                    </form>
+                  </footer>
+                </li>
+              )
+          )}
         </motion.ul>
       </div>
     );
