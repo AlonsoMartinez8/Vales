@@ -18,7 +18,11 @@ export default function App({ claveAcceso, dbVales }) {
   }, [desbloqueado]);
 
   if (desbloqueado) {
-    return <p>{vales.length}</p>;
+    return (
+        <ul>{vales.map(v=>(
+            <li key={v.id}>{v.titulo}-{v.descripcion}-{v.cantidad}-{v.consumido}</li>
+        ))}</ul>
+    );
   } else {
     return (
       <form onSubmit={handleSubmit} className="flex flex-col gap-2">
