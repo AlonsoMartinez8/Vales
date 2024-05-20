@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 
 export default function App({ claveAcceso, dbVales }) {
   const [desbloqueado, setDesbloqueado] = useState(false);
   const [clave, setClave] = useState("");
   const [vales, setVales] = useState([]);
+  const sliderRef = useRef(null);
   const comprobar = () => {
     return clave === claveAcceso;
   };
@@ -14,14 +16,24 @@ export default function App({ claveAcceso, dbVales }) {
   };
 
   useEffect(() => {
-    (desbloqueado)&&setVales(dbVales)
+    desbloqueado && setVales(dbVales);
   }, [desbloqueado]);
 
   if (desbloqueado) {
     return (
-        <ul>{vales.map(v=>(
-            <li key={v.id}>{v.titulo}-{v.descripcion}-{v.cantidad}-{v.consumido}</li>
-        ))}</ul>
+      <div className="w-fit max-w-full" ref={sliderRef}>
+        <motion.ul
+            drag="x"
+            dragConstraints={sliderRef}
+            className="flex items-center justify-start gap-2 w-fit "
+          >
+          {vales.map((v) => (
+            <li key={v.id}>
+              {v.titulo}-{v.descripcion}-{v.cantidad}-{v.consumido}
+            </li>
+          ))}
+        </motion.ul>
+      </div>
     );
   } else {
     return (
