@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-export default function App({ claveAcceso }) {
+export default function App({ claveAcceso, dbVales }) {
   const [desbloqueado, setDesbloqueado] = useState(false);
   const [clave, setClave] = useState("");
+  const [vales, setVales] = useState([]);
   const comprobar = () => {
     return clave === claveAcceso;
   };
@@ -11,8 +12,13 @@ export default function App({ claveAcceso }) {
     const desbloquear = comprobar(clave);
     setDesbloqueado(desbloquear);
   };
+
+  useEffect(() => {
+    (desbloqueado)&&setVales(dbVales)
+  }, [desbloqueado]);
+
   if (desbloqueado) {
-    return <p>Desbloqueado</p>;
+    return <p>{vales.length}</p>;
   } else {
     return (
       <form onSubmit={handleSubmit} className="flex flex-col gap-2">

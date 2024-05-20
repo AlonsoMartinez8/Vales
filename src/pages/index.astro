@@ -1,10 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import App from '../components/App.jsx'
+import {getVales} from '../api/getVales'
+const dbVales = await getVales()
 ---
 
 <Layout>
 	<main class="h-screen flex flex-col items-center justify-center">
-		<App client:visible claveAcceso={import.meta.env.CLAVE_ACCESO}/>
+		<App client:visible claveAcceso={import.meta.env.CLAVE_ACCESO} dbVales={dbVales}/>
 	</main>
 </Layout>
