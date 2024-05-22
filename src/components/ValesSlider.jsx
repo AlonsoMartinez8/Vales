@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
-export default function App({ claveAcceso, dbVales }) {
+export default function ValesSlider({ claveAcceso, dbVales, dbConsumidos }) {
   const [desbloqueado, setDesbloqueado] = useState(false);
   const [clave, setClave] = useState("");
   const [vales, setVales] = useState([]);
@@ -21,7 +21,8 @@ export default function App({ claveAcceso, dbVales }) {
 
   if (desbloqueado) {
     return (
-      <div className="w-fit max-w-full  overflow-hidden" ref={sliderRef}>
+      <div className="w-fit max-w-full overflow-hidden flex flex-col gap-10" ref={sliderRef}>
+        <h1 class="text-2xl text-blue-950 font-semibold w-full text-center">V A L E S * E N * P A R E J A</h1>
         <motion.ul
           drag="x"
           dragConstraints={sliderRef}
@@ -54,6 +55,32 @@ export default function App({ claveAcceso, dbVales }) {
                   </button>
                 </form>
               </footer>
+            </li>
+          ))}
+        </motion.ul>
+
+        <motion.ul
+          drag="x"
+          dragConstraints={sliderRef}
+          className="flex gap-2 w-fit h-auto px-4"
+        >
+          {dbConsumidos.map((c) => (
+            <li
+              key={c.id}
+              className="pointer-events-none w-80 md:w-96 flex flex-col items-center justify-between bg-black/80 border-[1px] shadow-lg aspect-video rounded-xl p-4"
+            >
+              <header className="w-full">
+                <h1 className="text-red-300 text-center text-2xl font-bold text-wrap">CONSUMIDO</h1>
+                <h2 className="text-white text-center text-xl font-bold text-wrap">
+                  {c.titulo}
+                </h2>
+              </header>
+              <main className="w-full">
+                <p className="text-white text-wrap text-center">
+                  {c.descripcion}
+                </p>
+              </main>
+              <small>{c.id}</small>
             </li>
           ))}
         </motion.ul>

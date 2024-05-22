@@ -10,7 +10,16 @@ const Vale = defineTable({
   },
 });
 
+const Consumido = defineTable({
+  columns: {
+    id: column.text({ primaryKey: true, optional: false, unique: true }),
+    idVale: column.text({ references: () => Vale.columns.id }),
+    titulo: column.text({ optional: false, default: "" }),
+    descripcion: column.text({ optional: false, default: "" }),
+  },
+});
+
 // https://astro.build/db/config
 export default defineDb({
-  tables: { Vale },
+  tables: { Vale, Consumido },
 });

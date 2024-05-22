@@ -1,12 +1,19 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import App from '../components/App.jsx'
-import {getVales} from './api/getVales.js'
-const dbVales = await getVales()
+import Layout from "../layouts/Layout.astro";
+import ValesSlider from "../components/ValesSlider.jsx";
+import { getVales } from "./api/getVales.ts";
+import { getConsumidos } from "./api/getConsumidos.ts";
+const dbVales = await getVales();
+const dbConsumidos = await getConsumidos();
 ---
 
 <Layout>
-	<main class="h-screen flex flex-col items-center justify-center">
-		<App client:visible claveAcceso={import.meta.env.CLAVE_ACCESO} dbVales={dbVales}/>
-	</main>
+  <main class="h-screen flex flex-col items-center justify-center">
+    <ValesSlider
+      client:visible
+      claveAcceso={import.meta.env.CLAVE_ACCESO}
+      dbVales={dbVales}
+      dbConsumidos={dbConsumidos}
+    />
+  </main>
 </Layout>
